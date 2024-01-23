@@ -16,10 +16,13 @@ import java.util.Set;
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer supplierId;
+    private Long id;
+    @Column(columnDefinition = "varchar(50)")
     private String supplierName;
     private String address;
+    @Column(columnDefinition = "varchar(11)")
     private String phoneNumber;
+    @Column(columnDefinition = "varchar(50)")
     private String email;
     @JsonIgnore
     @OneToMany(mappedBy = "supplier")

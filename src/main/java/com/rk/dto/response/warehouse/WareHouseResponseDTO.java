@@ -8,8 +8,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class WareHoseResponseDTO {
-    private String warehouseCode;
+public class WareHouseResponseDTO {
+    private String warehouseId;
     private String warehouseName;
     private String address;
     //vĩ độ địa chỉ kho
@@ -19,12 +19,13 @@ public class WareHoseResponseDTO {
     //sức chứa của kho
     private Integer capacity;
 
-    public WareHoseResponseDTO(Warehouse warehouse) {
-        this.warehouseCode = warehouse.getWarehouseCode();
+    public WareHouseResponseDTO(Warehouse warehouse) {
+        this.warehouseId = warehouse.getId();
         this.warehouseName = warehouse.getWarehouseName();
         this.address = warehouse.getAddress();
-        this.latitude = warehouse.getLatitude();
+//        this.latitude = warehouse.getLatitude();
         this.longitude = warehouse.getLongitude();
         this.capacity = warehouse.getCapacity();
     }
+
 }

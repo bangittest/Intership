@@ -15,32 +15,30 @@ import java.util.Set;
 @Builder
 public class Orders {
     @Id
-    private String orderCode;
+    private String id;
 //    //ngày tạo hàng
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private Date orderCreated;
-    @Column(columnDefinition = "Integer default 0")
+    private Date createdAt;
+    @Column(columnDefinition = "Integer(1) default 0")
     private Integer status =0;
     @ManyToOne
-    @JoinColumn(name = "warehouse_code",referencedColumnName = "warehouseCode")
-    private Warehouse warehouse;
-    @ManyToOne
-    @JoinColumn(name = "supplier_id",referencedColumnName = "supplierId")
+    @JoinColumn(name = "supplier_id",referencedColumnName = "id")
     private Supplier supplier;
     @ManyToOne
-    @JoinColumn(name = "receiver_id",referencedColumnName = "receiverId")
+    @JoinColumn(name = "receiver_id",referencedColumnName = "id")
     private Receiver receiver;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     //đơn đặt hàng
-    private Date orderStored;
+    private Date storedAt;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     //giờ giao hàng
-    private Date orderDelivered;
+    private Date deliveredAt;
     //Số lần giao hàng thất bại
+    @Column(columnDefinition = "Integer(1) default 0")
     private Integer numberFailures;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     //Ngày giờ hoàn hàng
-    private Date orderReturnCause;
+    private Date returnCause;
 
     @ManyToMany(fetch =FetchType.EAGER)
     @JoinTable(name = "order_reason",

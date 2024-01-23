@@ -14,18 +14,18 @@ import java.util.Date;
 public class History {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long HistoryId;
+    private Long id;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date userTime;
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
     @ManyToOne
-    @JoinColumn(name = "orders_id",referencedColumnName = "orderCode")
+    @JoinColumn(name = "orders_id",referencedColumnName = "id")
     private Orders orders;
 
     @ManyToOne
-    @JoinColumn(name = "warehouse_id",referencedColumnName = "warehouseCode")
+    @JoinColumn(name = "warehouse_id",referencedColumnName = "id")
     private Warehouse warehouse;
     private Integer status;
 }

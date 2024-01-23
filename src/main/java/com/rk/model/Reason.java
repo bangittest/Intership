@@ -1,9 +1,6 @@
 package com.rk.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,7 +13,8 @@ import lombok.*;
 public class Reason {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ReasonId;
+    private Integer id;
+    @Column(columnDefinition = "varchar(3)")
     private String reasonCode;
-    private String reasonDescription;
+    private String description;
 }

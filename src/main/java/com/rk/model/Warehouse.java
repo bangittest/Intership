@@ -17,21 +17,23 @@ import java.util.Set;
 //kho
 public class Warehouse {
     @Id
-    private String warehouseCode;
+    @Column(columnDefinition = "varchar(20)")
+    private String id;
+    @Column(columnDefinition = "varchar(50)")
     private String warehouseName;
     private String address;
     //vĩ độ địa chỉ kho
-    private String latitude;
+    @Column(columnDefinition = "decimal(18,15)")
+    private Float latitude;
     //kinh độ địa chỉ kho
+    @Column(columnDefinition = "decimal(18,15)")
     private String longitude;
     //sức chứa của kho
+    @Column(columnDefinition = "integer(3)")
     private Integer capacity;
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     Set<User>users;
-    @JsonIgnore
-    @OneToMany(mappedBy = "warehouse")
-    Set<Orders>orders;
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     Set<History> histories;

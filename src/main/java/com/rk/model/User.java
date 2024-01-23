@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true)
+    @Column(unique = true,columnDefinition = "varchar(50)")
     private String userName;
     private String password;
     private String token;
@@ -30,7 +30,7 @@ public class User {
     private Set<Role>roles;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "warehouse_id",referencedColumnName = "warehouseCode")
+    @JoinColumn(name = "warehouse_id",referencedColumnName = "id")
     private Warehouse warehouse;
     @JsonIgnore
     @OneToMany(mappedBy = "user")
