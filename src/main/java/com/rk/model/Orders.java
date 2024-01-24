@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,10 +22,10 @@ public class Orders {
     private Date createdAt;
     @Column(columnDefinition = "Integer(1) default 0")
     private Integer status =0;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_id",referencedColumnName = "id")
     private Supplier supplier;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id",referencedColumnName = "id")
     private Receiver receiver;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -39,7 +40,9 @@ public class Orders {
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     //Ngày giờ hoàn hàng
     private Date returnCause;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warehouse_id",referencedColumnName = "id")
+    private Warehouse warehouse;
     @ManyToMany(fetch =FetchType.EAGER)
     @JoinTable(name = "order_reason",
             joinColumns =@JoinColumn(name = "order_id"),
@@ -47,6 +50,6 @@ public class Orders {
     private Set<Reason>reasons;
     @JsonIgnore
     @OneToMany(mappedBy = "orders")
-    Set<History> histories;
+    Set<History> histories=new HashSet<>();
 
 }

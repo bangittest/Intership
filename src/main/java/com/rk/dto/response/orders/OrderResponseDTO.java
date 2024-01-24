@@ -4,6 +4,7 @@ import com.rk.model.Orders;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -13,11 +14,11 @@ import java.util.stream.Collectors;
 @Builder
 public class OrderResponseDTO {
     private String orderCode;
-    //    //ngày tạo hàng
+    //ngày tạo hàng
     private Date orderCreated;
     private Integer status ;
-    private String warehouseId;
-    private String warehouseName;
+    private String warehouseIds;
+    private String warehouseNames;
     //bên nhận hàng
     private String receiverName ;
     private String receiverAddress;
@@ -39,10 +40,16 @@ public class OrderResponseDTO {
 
     public OrderResponseDTO(Orders orders) {
         this.orderCode = orders.getId();
-//        this.orderCreated = orders.getOrderCreated();
+        this.orderCreated = orders.getCreatedAt();
         this.status = orders.getStatus();
-        this.warehouseId = String.valueOf(orders.getHistories().stream().map(history -> history.getWarehouse().getId()).collect(Collectors.toList()));
-        this.warehouseName = String.valueOf(orders.getHistories().stream().map(history -> history.getWarehouse().getWarehouseName()).collect(Collectors.toList()));
+        this.warehouseIds = orders.getHistories().stream()
+                .map(history -> history.getWarehouse().getId())
+                .collect(Collectors.joining(","));
+
+        this.warehouseNames = orders.getHistories().stream()
+                .map(history -> history.getWarehouse().getWarehouseName())
+                .collect(Collectors.joining(","));
+
         this.receiverName = orders.getReceiver().getReceiverName();
         this.receiverAddress = orders.getReceiver().getAddress();
         this.receiverPhoneNumber = orders.getReceiver().getPhoneNumber();
@@ -51,9 +58,9 @@ public class OrderResponseDTO {
         this.supplierAddress = orders.getSupplier().getAddress();
         this.supplierPhoneNumber = orders.getSupplier().getPhoneNumber();
         this.supplierEmail = orders.getSupplier().getEmail();
-//        this.orderStored = orders.getOrderStored();
-//        this.orderDelivered = orders.getOrderDelivered();
+        this.orderStored = orders.getStoredAt();
+        this.orderDelivered = orders.getDeliveredAt();
         this.numberFailures = orders.getNumberFailures();
-//        this.orderReturnCause = orders.getOrderReturnCause();
+        this.orderReturnCause = orders.getReturnCause();
     }
 }

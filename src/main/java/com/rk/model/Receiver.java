@@ -25,11 +25,11 @@ public class Receiver {
     @Column(columnDefinition = "varchar(50)")
     private String email;
     //vĩ độ địa chỉ kho
-    @Column(columnDefinition = "decimal(18,15)")
-    private String latitude;
+//    @Column(columnDefinition = "decimal(13,10)")
+    private Double latitude;
     //kinh độ địa chỉ kho
-    @Column(columnDefinition = "decimal(18,15)")
-    private String longitude;
+//    @Column(columnDefinition = "decimal(13,10)")
+    private Double longitude;
     @JsonIgnore
     @OneToMany(mappedBy = "receiver")
     Set<Orders>orders;

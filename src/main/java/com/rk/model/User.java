@@ -32,8 +32,4 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "warehouse_id",referencedColumnName = "id")
     private Warehouse warehouse;
-    @JsonIgnore
-    @OneToMany(mappedBy = "user")
-    Set<History>histories;
-
 }

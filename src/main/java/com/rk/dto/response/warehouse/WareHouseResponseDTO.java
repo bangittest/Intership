@@ -13,9 +13,9 @@ public class WareHouseResponseDTO {
     private String warehouseName;
     private String address;
     //vĩ độ địa chỉ kho
-    private String latitude;
+    private Double latitude;
     //kinh độ địa chỉ kho
-    private String longitude;
+    private Double longitude;
     //sức chứa của kho
     private Integer capacity;
 
@@ -23,7 +23,7 @@ public class WareHouseResponseDTO {
         this.warehouseId = warehouse.getId();
         this.warehouseName = warehouse.getWarehouseName();
         this.address = warehouse.getAddress();
-//        this.latitude = warehouse.getLatitude();
+        this.latitude = warehouse.getLatitude();
         this.longitude = warehouse.getLongitude();
         this.capacity = warehouse.getCapacity();
     }

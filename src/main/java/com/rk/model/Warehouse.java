@@ -23,11 +23,11 @@ public class Warehouse {
     private String warehouseName;
     private String address;
     //vĩ độ địa chỉ kho
-    @Column(columnDefinition = "decimal(18,15)")
-    private Float latitude;
+//    @Column(columnDefinition = "decimal(13,10)")
+    private Double latitude;
     //kinh độ địa chỉ kho
-    @Column(columnDefinition = "decimal(18,15)")
-    private String longitude;
+//    @Column(columnDefinition = "decimal(13,10)")
+    private Double longitude;
     //sức chứa của kho
     @Column(columnDefinition = "integer(3)")
     private Integer capacity;
@@ -37,4 +37,8 @@ public class Warehouse {
     @JsonIgnore
     @OneToMany(mappedBy = "warehouse")
     Set<History> histories;
+    @JsonIgnore
+    @OneToMany(mappedBy = "warehouse")
+    Set<Orders>orders;
+
 }

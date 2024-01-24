@@ -1,6 +1,7 @@
 package com.rk.advice;
 
 import com.rk.exception.CustomException;
+import com.rk.exception.WareHouseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,9 +22,15 @@ public class ApplicationHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<String> customException(CustomException e){
         return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(WareHouseException.class)
+    public ResponseEntity<String> WareHouseException(WareHouseException e){
+        return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
     }
 
 }

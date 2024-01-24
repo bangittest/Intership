@@ -17,9 +17,7 @@ public class History {
     private Long id;
     @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Date userTime;
-    @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
-    private User user;
+    private Long userId;
     @ManyToOne
     @JoinColumn(name = "orders_id",referencedColumnName = "id")
     private Orders orders;
