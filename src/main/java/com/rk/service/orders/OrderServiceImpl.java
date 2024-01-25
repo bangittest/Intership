@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -39,6 +40,8 @@ public class OrderServiceImpl implements OrderService {
     private SupplierRepository supplierRepository;
     @Autowired
     private WareHouseService wareHouseService;
+    @Autowired
+    private ReasonsRepository reasonsRepository;
     @Override
     public List<OrderResponseDTO> findAll() {
         List<Orders>list=orderRepository.findAll();
@@ -193,8 +196,10 @@ public class OrderServiceImpl implements OrderService {
       }
     }
 
+
     @Override
     @Transactional(rollbackFor = Exception.class)
+//    @Scheduled(fixedRate = 5000)
     public List<Orders> findTop100ByStatusOrderByCreatedAtAsc(Long userId) throws CustomException {
      try {
          List<Orders> newOrders = orderRepository.findTop100ByStatusOrderByCreatedAtAsc(0);
@@ -312,8 +317,6 @@ public class OrderServiceImpl implements OrderService {
 
         return updatedAvailability;
     }
-    @Autowired
-    private ReasonsRepository reasonsRepository;
 
     @Override
     public void confirmDelivery(String orderId, Integer statusOrder, Long reasonId) throws CustomException {
@@ -346,10 +349,6 @@ public class OrderServiceImpl implements OrderService {
 //            updateWarehouseAvailability(order.getWarehouse(),reasonId);
 //        }
     }
-
-
-
-
     @Override
     @Transactional(rollbackFor =Exception.class)
     public void handleReturns(Long userId) {
@@ -376,22 +375,17 @@ public class OrderServiceImpl implements OrderService {
               history.setWarehouse(warehouse);
               history.setStatus(order.getStatus());
               historyRepository.save(history);
-
-              // Send emails
-//              sendEmailToReceiver(order);
-//              sendEmailToSupplier(order);
           }
       }catch (Exception e) {
           log.error("Đã xảy ra ngoại lệ trong quá trình tạo lịch sử đơn hàng: {}", e.getMessage());
           TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
       }
     }
-//    private void sendEmailToReceiver(Orders order) {
-////        emailService.sendEmail(order.getReceiver().getEmail(), "Subject", "Email content");
-//    }
-//    private void sendEmailToSupplier(Orders order) {
-////        emailService.sendEmail(order.getSupplier().getEmail(), "Subject", "Email content");
-//    }
+
+    @Override
+    public Orders findByID(String orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
 }
 
 

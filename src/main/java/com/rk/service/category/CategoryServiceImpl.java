@@ -8,6 +8,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,16 +45,16 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void generateCategoryExel(HttpServletResponse response) {
         List<Category>list=categoryRepository.findAll();
-        HSSFWorkbook workbook=new HSSFWorkbook();
-        HSSFSheet sheet=workbook.createSheet("BaoCao");
-        HSSFRow row=sheet.createRow(0);
+        Workbook workbook=new XSSFWorkbook();
+        Sheet sheet=workbook.createSheet("BaoCao");
+        Row row=sheet.createRow(0);
         row.createCell(0).setCellValue("Id");
         row.createCell(1).setCellValue("title");
         row.createCell(2).setCellValue("description");
 
         int dateRowIndex=1;
         for (Category category:list) {
-            HSSFRow dateRow=sheet.createRow(dateRowIndex);
+            Row dateRow=sheet.createRow(dateRowIndex);
             dateRow.createCell(0).setCellValue(category.getCategoryId());
             dateRow.createCell(1).setCellValue(category.getTitle());
             dateRow.createCell(2).setCellValue(category.getDescription());
@@ -65,4 +69,11 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
     }
+
+    @Override
+    public void save(Category category) {
+        categoryRepository.save(category);
+    }
+
+
 }

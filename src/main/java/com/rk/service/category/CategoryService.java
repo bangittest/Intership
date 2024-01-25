@@ -10,4 +10,6 @@ public interface CategoryService {
     void saveCategory(MultipartFile file) throws IllegalAccessException;
     List<Category>findAll();
     void generateCategoryExel(HttpServletResponse response);
+    void  save(Category category);
+
 }

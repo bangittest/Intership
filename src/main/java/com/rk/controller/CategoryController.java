@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,11 +34,12 @@ public class CategoryController {
 
     @GetMapping("/excel")
     public void generateExel(HttpServletResponse response){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        String datePart = LocalDateTime.now().format(formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH:mm:ss");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
         response.setContentType("application/octet-stream");
         String headerKey="Content-Disposition";
-        String headerValue="attachment;filename=Report01_"+datePart+".xls";
+        String headerValue="attachment;filename=Report01_"+currentDateTime+".xlsx";
         response.setHeader(headerKey,headerValue);
         categoryService.generateCategoryExel(response);
     }

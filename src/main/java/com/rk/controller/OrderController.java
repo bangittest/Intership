@@ -99,8 +99,8 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PostMapping("/order/satus")
-    @Scheduled(fixedRate = 5000)
+    @PostMapping("/order/satusssssssssss")
+//    @Scheduled(fixedRate = 5000)
     public ResponseEntity<?>updateStatus(Authentication authentication) throws CustomException {
         Long userId=userDetailService.getUserIdFromAuthentication(authentication);
         orderService.saveUpdate(userId);
@@ -108,7 +108,6 @@ public class OrderController {
     }
 
     @GetMapping("/order-status")
-    @Scheduled(fixedRate = 5000)
     public ResponseEntity<?>updateStatusss(Authentication authentication) throws CustomException {
         System.out.println("chaj");
         Long userId=userDetailService.getUserIdFromAuthentication(authentication);

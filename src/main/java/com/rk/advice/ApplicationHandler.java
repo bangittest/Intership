@@ -1,6 +1,7 @@
 package com.rk.advice;
 
 import com.rk.exception.CustomException;
+import com.rk.exception.ImportDataException;
 import com.rk.exception.WareHouseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,11 @@ public class ApplicationHandler {
     public ResponseEntity<String> WareHouseException(WareHouseException e){
         return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ImportDataException.class)
+    public ResponseEntity<String> ImportDataException(ImportDataException e){
+        return new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
 
 }
